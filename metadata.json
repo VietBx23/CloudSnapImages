@@ -1,6 +1,6 @@
 {
   "name": "CloudSnap - Instant Image Hosting",
-  "description": "Fast, anonymous, and reliable image hosting service.",
+  "description": "Premium, high-speed image hosting and content delivery network.",
   "requestFramePermissions": [
     "camera"
   ]

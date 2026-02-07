@@ -1,53 +1,81 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudSnap | Premium CDN</title>
+    <title>CloudSnap | Premium Image Cloud</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --brand-primary: #3b82f6;
+            --bg-base: #ffffff;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #ffffff;
-            color: #0f172a;
+            background-color: var(--bg-base);
+            color: #1e293b;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        .mesh-bg {
+        /* Arctic Mesh Background */
+        .background-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            inset: 0;
             z-index: -1;
-            background: 
-                radial-gradient(at 0% 0%, hsla(215,100%,98%,1) 0, transparent 50%),
-                radial-gradient(at 100% 0%, hsla(250,100%,98%,1) 0, transparent 50%),
-                radial-gradient(at 50% 50%, hsla(210,100%,99%,1) 0, transparent 50%);
+            background: #ffffff;
         }
 
-        .glow-box {
-            position: relative;
+        .mesh-gradient {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(210,100%,98%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(199,100%,97%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(217,100%,98%,1) 0, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(210,100%,99%,1) 0, transparent 50%);
+            filter: blur(60px);
+        }
+
+        .glass-header {
             background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
         }
 
-        .glow-box:hover {
-            border-color: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+        .premium-shadow {
+            box-shadow: 
+                0 1px 2px rgba(0,0,0,0.02),
+                0 4px 12px rgba(0,0,0,0.03),
+                0 12px 24px rgba(0,0,0,0.03);
         }
 
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+        .card-light {
+            background: white;
+            border: 1px solid #f1f5f9;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .animate-shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            background-size: 200% 100%;
-            animation: shimmer 2s infinite;
+        .card-light:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -20px rgba(59, 130, 246, 0.15);
         }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-reveal { animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        
+        html { scroll-behavior: smooth; }
     </style>
 <script type="importmap">
 {
@@ -62,7 +90,9 @@
 </script>
 </head>
 <body>
-    <div class="mesh-bg"></div>
+    <div class="background-container">
+        <div class="mesh-gradient"></div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 </body>

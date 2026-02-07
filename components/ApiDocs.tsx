@@ -16,37 +16,37 @@ const ApiDocs: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 bg-slate-50/50 rounded-[32px] p-8 md:p-12 border border-slate-100">
-      <div className="max-w-xl">
-        <div className="flex items-center gap-2.5 text-blue-600 mb-4">
-           <CodeIcon className="w-4 h-4" />
-           <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Developer Portal</span>
+    <div className="space-y-10 bg-white/60 backdrop-blur-xl border border-slate-100 rounded-[40px] p-8 md:p-14 premium-shadow relative overflow-hidden group/docs">
+      <div className="max-w-xl relative z-10">
+        <div className="flex items-center gap-3 text-blue-600 mb-6">
+           <CodeIcon className="w-4.5 h-4.5" />
+           <span className="text-[10px] font-bold uppercase tracking-[0.4em]">Developer Core</span>
         </div>
-        <h2 className="text-2xl font-extrabold text-slate-900 mb-3">Integrate our API</h2>
-        <p className="text-[13px] text-slate-500 font-medium leading-relaxed">
-          High-performance endpoint for programmatic uploads. Simple multipart requests with direct CDN responses.
+        <h2 className="text-3xl font-extrabold text-slate-900 mb-4 tracking-tight">Powerful API Infrastructure</h2>
+        <p className="text-sm text-slate-500 font-medium leading-relaxed">
+          The same infrastructure we use for the dashboard. Reliable, high-throughput endpoints designed for high-scale visual assets.
         </p>
       </div>
 
-      <div className="relative group">
-        <div className="relative bg-[#020617] rounded-[20px] overflow-hidden shadow-xl border border-white/5">
-          <div className="flex items-center justify-between px-5 py-3 bg-white/5 border-b border-white/5">
-            <div className="flex gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-slate-800"></div>
-              <div className="w-2 h-2 rounded-full bg-slate-800"></div>
-              <div className="w-2 h-2 rounded-full bg-slate-800"></div>
+      <div className="relative group/code z-10">
+        <div className="relative bg-slate-900 rounded-[24px] overflow-hidden shadow-2xl transition-all group-hover/code:shadow-blue-500/10">
+          <div className="flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/5">
+            <div className="flex gap-2">
+              <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
             </div>
             <button 
               onClick={copy} 
-              className="text-[9px] font-bold text-slate-500 hover:text-white transition-colors uppercase tracking-widest flex items-center gap-2"
+              className="text-[10px] font-bold text-slate-400 hover:text-white transition-all uppercase tracking-widest flex items-center gap-2"
             >
-              {copied ? <CheckIcon className="w-3 h-3 text-emerald-400" /> : <CopyIcon className="w-3 h-3" />}
-              {copied ? 'Copied' : 'Copy cURL'}
+              {copied ? <CheckIcon className="w-3.5 h-3.5 text-emerald-400" /> : <CopyIcon className="w-3.5 h-3.5" />}
+              {copied ? 'COPIED TO CLIPBOARD' : 'COPY cURL'}
             </button>
           </div>
           
-          <div className="p-6 md:p-8 overflow-x-auto">
-            <pre className="text-[12px] font-mono leading-relaxed text-blue-100/80">
+          <div className="p-8 md:p-10 overflow-x-auto scrollbar-hide">
+            <pre className="text-[13px] font-mono leading-relaxed text-blue-100/90">
               <code>
                 <span className="text-pink-400">curl</span> -X POST <span className="text-emerald-400">"{endpoint}"</span> \<br/>
                 &nbsp;&nbsp;-F <span className="text-amber-400">"images[]=@photo.jpg"</span> \<br/>
@@ -57,16 +57,16 @@ const ApiDocs: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
         {[
-          { label: 'Method', value: 'POST' },
-          { label: 'Key', value: 'images[]' },
-          { label: 'Size Limit', value: '25 MB' },
-          { label: 'Support', value: 'CORS Ready' }
+          { label: 'HTTP Protocol', value: 'POST' },
+          { label: 'Asset Key', value: 'images[]' },
+          { label: 'Node Size', value: '25.0 MB' },
+          { label: 'Global TTL', value: 'Infinity' }
         ].map((item, i) => (
-          <div key={i} className="p-4 bg-white border border-slate-100 rounded-xl">
-            <p className="text-[9px] font-bold text-slate-400 uppercase mb-1.5 tracking-widest">{item.label}</p>
-            <p className="text-[11px] font-bold text-slate-800">{item.value}</p>
+          <div key={i} className="p-6 bg-white border border-slate-100 rounded-2xl transition-all hover:border-blue-200 hover:bg-blue-50/20">
+            <p className="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">{item.label}</p>
+            <p className="text-[13px] font-bold text-slate-800">{item.value}</p>
           </div>
         ))}
       </div>
