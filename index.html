@@ -3,77 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudSnap | Premium Image Cloud</title>
+    <title>CloudSnap | Premium Infrastructure</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-primary: #3b82f6;
-            --bg-base: #ffffff;
+            --brand-blue: #0066FF;
+            --brand-blue-glow: rgba(0, 102, 255, 0.1);
+            --bg-canvas: #FFFFFF;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-base);
-            color: #1e293b;
+            background-color: var(--bg-canvas);
+            color: #0F172A;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            letter-spacing: -0.015em;
         }
 
-        /* Arctic Mesh Background */
-        .background-container {
+        /* Technical Grid Overlay */
+        .technical-grid {
             position: fixed;
             inset: 0;
             z-index: -1;
-            background: #ffffff;
+            background-image: radial-gradient(#e2e8f0 0.8px, transparent 0.8px);
+            background-size: 24px 24px;
+            mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+            opacity: 0.4;
         }
 
-        .mesh-gradient {
-            position: absolute;
+        .mesh-accent {
+            position: fixed;
             inset: 0;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(210,100%,98%,1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(199,100%,97%,1) 0, transparent 50%), 
-                radial-gradient(at 100% 100%, hsla(217,100%,98%,1) 0, transparent 50%),
-                radial-gradient(at 0% 100%, hsla(210,100%,99%,1) 0, transparent 50%);
-            filter: blur(60px);
+            z-index: -2;
+            background: 
+                radial-gradient(at 0% 0%, hsla(214,100%,97%,1) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(200,100%,98%,1) 0, transparent 50%),
+                radial-gradient(at 50% 100%, hsla(210,100%,99%,1) 0, transparent 50%);
         }
 
-        .glass-header {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+        .premium-blur {
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
         }
 
-        .premium-shadow {
-            box-shadow: 
-                0 1px 2px rgba(0,0,0,0.02),
-                0 4px 12px rgba(0,0,0,0.03),
-                0 12px 24px rgba(0,0,0,0.03);
+        .bento-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .card-light {
-            background: white;
-            border: 1px solid #f1f5f9;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .card-light:hover {
-            border-color: #3b82f6;
+        .bento-card:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: var(--brand-blue);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
             transform: translateY(-2px);
-            box-shadow: 0 20px 40px -20px rgba(59, 130, 246, 0.15);
         }
 
-        @keyframes reveal {
-            from { opacity: 0; transform: translateY(15px); }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.98); }
+        }
+
+        .animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
+
+        @keyframes float-in {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-reveal { animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-float-in { animation: float-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
         
         html { scroll-behavior: smooth; }
     </style>
@@ -90,9 +95,8 @@
 </script>
 </head>
 <body>
-    <div class="background-container">
-        <div class="mesh-gradient"></div>
-    </div>
+    <div class="technical-grid"></div>
+    <div class="mesh-accent"></div>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 </body>
