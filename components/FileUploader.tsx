@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import { UploadIcon, AlertIcon } from './Icons';
 import { UploadStatus } from '../types';
@@ -12,36 +13,27 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUpload, status, error }) 
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => setIsDragging(false);
-
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    const files = e.dataTransfer 
-      ? (Array.from(e.dataTransfer.files) as File[]).filter(file => file.type.startsWith('image/'))
-      : [];
+    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
     if (files.length > 0) onUpload(files);
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <div 
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
+        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+        onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
         className={`
-          relative min-h-[200px] rounded-[24px] border-2 border-dashed flex flex-col items-center justify-center
-          transition-all duration-300 cursor-pointer group overflow-hidden
+          relative min-h-[180px] rounded-3xl border-2 border-dashed flex flex-col items-center justify-center
+          transition-all duration-300 cursor-pointer overflow-hidden
           ${isDragging 
-            ? 'bg-blue-600/5 border-blue-600 ring-4 ring-blue-600/5' 
-            : 'bg-white border-slate-200/80 hover:border-blue-500/40 hover:bg-slate-50/30'}
-          ${status === UploadStatus.UPLOADING ? 'pointer-events-none' : ''}
+            ? 'bg-blue-50 border-blue-400 scale-[0.99] ring-8 ring-blue-500/5' 
+            : 'bg-white border-slate-200 hover:border-blue-300 hover:bg-slate-50/50'}
+          ${status === UploadStatus.UPLOADING ? 'pointer-events-none opacity-50' : ''}
         `}
       >
         <input
@@ -53,45 +45,33 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUpload, status, error }) 
           className="hidden"
         />
 
-        <div className="flex flex-col items-center p-8 space-y-4 text-center">
+        <div className="flex flex-col items-center gap-3">
           <div className={`
-            w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500
-            ${isDragging ? 'bg-blue-600 text-white shadow-lg' : 'bg-slate-50 text-slate-400 group-hover:bg-blue-600 group-hover:text-white'}
+            w-10 h-10 rounded-xl flex items-center justify-center transition-colors
+            ${isDragging ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}
           `}>
-             <UploadIcon className={`w-6 h-6 ${isDragging ? 'animate-bounce' : ''}`} />
+             <UploadIcon className="w-5 h-5" />
           </div>
-          <div>
-            <p className="text-lg font-bold text-slate-900">Click or drag images</p>
-            <p className="text-[11px] text-slate-400 mt-1 font-medium tracking-wide">Supports PNG, JPG, WebP &bull; Max 25MB</p>
+          <div className="text-center">
+            <p className="text-sm font-bold text-slate-900">Kéo thả ảnh vào đây</p>
+            <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest mt-1">PNG, JPG, WebP tối đa 25MB</p>
           </div>
         </div>
 
         {status === UploadStatus.UPLOADING && (
-          <div className="absolute inset-0 bg-white/95 backdrop-blur-xl rounded-[24px] flex items-center justify-center z-20 animate-reveal">
-             <div className="flex flex-col items-center gap-6 px-10 w-full max-w-xs">
-                <div className="flex items-center gap-3 bg-slate-900 text-white px-5 py-2.5 rounded-xl shadow-lg">
-                    <div className="w-3.5 h-3.5 border-[2px] border-white/20 border-t-white rounded-full animate-spin"></div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest">Processing</span>
-                </div>
-                <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
-                   <div className="h-full bg-blue-600 animate-[progress_1.5s_ease-in-out_infinite]"></div>
-                </div>
+          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-20">
+             <div className="flex flex-col items-center gap-4">
+                <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Đang tải lên...</span>
              </div>
           </div>
         )}
       </div>
 
-      <style>{`
-        @keyframes progress {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
-
       {error && (
-        <div className="mt-4 p-4 bg-rose-50 border border-rose-100 rounded-xl flex items-center gap-3 animate-reveal">
-          <AlertIcon className="w-4 h-4 text-rose-500 flex-shrink-0" />
-          <p className="text-[12px] text-rose-800 font-bold">{error}</p>
+        <div className="mt-4 p-3 bg-rose-50 border border-rose-100 rounded-xl flex items-center gap-3 animate-reveal">
+          <AlertIcon className="w-4 h-4 text-rose-500" />
+          <p className="text-[11px] text-rose-800 font-bold">{error}</p>
         </div>
       )}
     </div>
