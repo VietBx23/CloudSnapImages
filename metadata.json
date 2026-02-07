@@ -1,0 +1,7 @@
+{
+  "name": "CloudSnap - Instant Image Hosting",
+  "description": "Fast, anonymous, and reliable image hosting service.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudSnap | Premium Image Infrastructure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #0066FF;
+            --bg-base: #fafafa;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-base);
+            color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Sophisticated Mesh Background */
+        .mesh-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(220,100%,96%,1) 0, transparent 45%), 
+                radial-gradient(at 100% 0%, hsla(250,100%,97%,1) 0, transparent 45%), 
+                radial-gradient(at 100% 100%, hsla(210,100%,96%,1) 0, transparent 45%), 
+                radial-gradient(at 0% 100%, hsla(190,100%,96%,1) 0, transparent 45%);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .card-elevated {
+            background: white;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 10px 25px -10px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        .card-elevated:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -20px rgba(0,0,0,0.1);
+            border-color: rgba(0, 102, 255, 0.15);
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-reveal { animation: reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 10px; }
+        
+        html { scroll-behavior: smooth; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "axios": "https://esm.sh/axios@^1.13.2"
+  }
+}
+</script>
+</head>
+<body>
+    <div class="mesh-background"></div>
+    <div id="root"></div>
+</body>
+</html>
